@@ -30,8 +30,8 @@ public class IncludeForBackup{
                 }
             }
             if(!isIncluded){
-                if(file.isFile()) xf+=" "+file.getAbsolutePath();
-                if(file.isDirectory()) xd+=" "+file.getAbsolutePath();
+                if(file.isFile()) xf+=" \""+file.getAbsolutePath()+"\"";
+                if(file.isDirectory()) xd+=" \""+file.getAbsolutePath()+"\"";
                 exclude+=" --exclude=\""+file.getAbsolutePath()+"\"";
                 excludeFNames.add(file.getName());
             }
@@ -70,7 +70,7 @@ public class IncludeForBackup{
         try{
             if(isUnix()){
                 String command = 
-                    "rsync -avh --delete "+exclude+" $(pwd) "+destination+"\n"+
+                    "rsync -avh --delete "+exclude+" $(pwd) \""+destination+"\"\n"+
                     "read -p \"Press [Enter] key to start backup...\"\n";
                 writeSh(command);
                 Runtime.getRuntime().exec("shellexec.sh");
